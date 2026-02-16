@@ -368,7 +368,7 @@ public:
     }
 
     bool insert(const K &key, const V &value) override
-    {
+    {   // check if tablesize should increase 
         if (this->getLoadFactor() > LOAD_FACTOR_THRESHOLD &&
             this->insertionsSinceExpansion >= this->numElements / 2)
         {
@@ -380,9 +380,9 @@ public:
         int i = 0;
         bool collisionOccurred = false;
 
-        while (i < this->tableSize)
+        while (i < this->tableSize) // traverse through table
         {
-            int index = probe(key, i);
+            int index = probe(key, i); // new element er jonno find index
 
             if (!occupied[index] || table[index].isDeleted)
             {
@@ -397,12 +397,12 @@ public:
                 return true;
             }
 
-            if (table[index].key == key)
+            if (table[index].key == key) // Key already exists
             {
-                return false; // Key already exists
+                return false;
             }
 
-            collisionOccurred = true;
+            collisionOccurred = true; // at that index onno element chilo
             i++;
         }
 
@@ -414,7 +414,7 @@ public:
         hits = 0;
         int i = 0;
 
-        while (i < this->tableSize)
+        while (i < this->tableSize) // traverse through table
         {
             int index = probe(key, i);
             hits++;
